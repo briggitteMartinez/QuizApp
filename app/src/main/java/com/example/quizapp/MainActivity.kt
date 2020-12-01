@@ -5,8 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+
+    private lateinit var job : Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    var questionList : Constants?= null
+
+    //var questionList : Constants.getQuestions() = null
+    private lateinit var db  : AppDatabase
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,5 +31,46 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        job = Job()
+        db = AppDatabase.getInstance(this)
+
+        loadAllQuestions()
+
+       /* addNewQuestion(Question(1,
+            "Who is this?",
+            R.drawable.disney_jasmine,
+            "Jamila", "Jasmine",
+            "Janine", 2 ))
+        addNewQuestion(Question(2,
+            "Who is this?",
+            R.drawable.aurora2,
+            "Anastasia", "Alice",
+            "Aurora", 3))*/
+
+
+    }
+fun addNewQuestion(question:Question){
+    launch(Dispatchers.IO){
+        db.questionDao.insert(question)
+    }
+}
+    fun loadAllQuestions() {
+        val questions = async(Dispatchers.IO) {
+            db.questionDao.getAll()
+        }
+
+        launch {
+            val list = questions.await().toMutableList()
+            questionList = Constants(list)
+
+        }
+
+    }
+
+
+    fun addNewQuestions(question : Question) {
+        launch(Dispatchers.IO) {
+            db.questionDao.insert(question)
+        }
     }
 }
