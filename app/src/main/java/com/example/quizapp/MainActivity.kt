@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
         db = AppDatabase.getInstance(this)
 
-        loadAllQuestions()
+        //loadAllQuestions()
 
        /* addNewQuestion(Question(1,
             "Who is this?",
@@ -45,7 +45,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             "Who is this?",
             R.drawable.aurora2,
             "Anastasia", "Alice",
-            "Aurora", 3))*/
+            "Aurora", 3))
+        addNewQuestion(Question(
+            3,
+            "Who is this?",
+            R.drawable.belle2,
+            "Belle", "Ella",
+            "Ariel", 1 ))
+        addNewQuestion(Question(4,
+            "Who is this?",
+            R.drawable.mulan2,
+            "Pocahontas", "Mulan",
+            "Ling", 2 ))
+        addNewQuestion(Question(5,
+            "Who is this?",
+            R.drawable.tiana,
+            "Arianna", "Alana",
+            "Tiana", 3))                 */
 
 
     }
@@ -54,7 +70,7 @@ fun addNewQuestion(question:Question){
         db.questionDao.insert(question)
     }
 }
-    fun loadAllQuestions() {
+    /*fun loadAllQuestions() {
         val questions = async(Dispatchers.IO) {
             db.questionDao.getAll()
         }
@@ -65,12 +81,8 @@ fun addNewQuestion(question:Question){
 
         }
 
-    }
+    }*/
 
 
-    fun addNewQuestions(question : Question) {
-        launch(Dispatchers.IO) {
-            db.questionDao.insert(question)
-        }
+
     }
-}

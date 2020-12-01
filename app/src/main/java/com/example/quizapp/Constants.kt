@@ -1,9 +1,9 @@
 package com.example.quizapp
 
-class Constants(private val questions : MutableList<Question>){
+object Constants{
 
-     val TOTAL_QUESTIONS:String = "total_question"
-     val CORRECT_ANSWERS: String = "correct_answers"
+     const val TOTAL_QUESTIONS:String = "total_question"
+     const val CORRECT_ANSWERS: String = "correct_answers"
 
     fun getQuestions (): ArrayList<Question>{
         val questionsList = ArrayList<Question>()
