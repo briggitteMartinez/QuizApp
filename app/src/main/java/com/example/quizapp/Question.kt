@@ -1,13 +1,18 @@
 package com.example.quizapp
 
-data class Question (
-    val id: Int,
-    val question: String,
-    val image: Int,
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    val optOne: String,
-    val optTwo: String,
-    val optThree: String,
-    val correctAnswer: Int
+@Entity(tableName = "question")
+data class Question (
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo(name = "question") val question: String,
+    @ColumnInfo(name = "image")val image: Int,
+
+    @ColumnInfo(name = "option 1")val optOne: String,
+    @ColumnInfo(name = "option 2")val optTwo: String,
+    @ColumnInfo(name = "option 3")val optThree: String,
+    @ColumnInfo(name = "correct answer")val correctAnswer: Int
 
 )
