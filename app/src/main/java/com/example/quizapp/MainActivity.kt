@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var questionList : Constants?= null
+    //var questionList : Constants?= null
 
     //var questionList : Constants.getQuestions() = null
     private lateinit var db  : AppDatabase
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
         db = AppDatabase.getInstance(this)
 
-        //loadAllQuestions()
+        loadAllQuestions()
 
        /* addNewQuestion(Question(1,
             "Who is this?",
@@ -70,18 +70,18 @@ fun addNewQuestion(question:Question){
         db.questionDao.insert(question)
     }
 }
-    /*fun loadAllQuestions() {
+    fun loadAllQuestions() {
         val questions = async(Dispatchers.IO) {
             db.questionDao.getAll()
         }
-
+/*
         launch {
             val list = questions.await().toMutableList()
             questionList = Constants(list)
 
         }
 
-    }*/
+    */}
 
 
 
